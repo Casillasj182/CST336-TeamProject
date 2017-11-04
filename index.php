@@ -20,6 +20,38 @@ function getMovieLength() {
     }
 }
 
+function getMovieYear() {
+    global $conn;
+    $sql = "SELECT distinct(release_year)
+            FROM `movie` 
+            ORDER BY release_year";
+    
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    foreach ($records as $record) {
+        
+        echo "<option> "  . $record['release_year'] . "</option>";
+    }
+}
+
+function getMovieRating() {
+    global $conn;
+    $sql = "SELECT distinct(rating)
+            FROM `movie` 
+            ORDER BY rating";
+    
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    foreach ($records as $record) {
+        
+        echo "<option> "  . $record['rating'] . "</option>";
+    }
+}
+
 
 function displayMovies(){
     global $conn;
@@ -50,8 +82,8 @@ function displayMovies(){
             //The following query allows SQL injection due to the single quotes
             //$sql .= " AND deviceName LIKE '%" . $_GET['deviceName'] . "%'";
   
-            $sql .= " AND release_year LIKE :releaseyear"; //using named parameters
-            $namedParameters[':releaseyear'] = "%" . $_GET['release_year'] . "%";
+           $sql .= " AND release_year = :release_year"; //using named parameters
+            $namedParameters[':release_year'] =   $_GET['release_year'] ;
          }     
          
              
@@ -60,9 +92,8 @@ function displayMovies(){
             //The following query allows SQL injection due to the single quotes
             //$sql .= " AND deviceName LIKE '%" . $_GET['deviceName'] . "%'";
   
-            $sql .= " AND length LIKE :length"; //using named parameters
-            $namedParameters[':length'] = "%" . $_GET['
-            length'] . "%";
+            $sql .= " AND length = :length"; //using named parameters
+            $namedParameters[':length'] =   $_GET['length'] ;
          }   
               
         if (!empty($_GET['rating'])) {
@@ -70,9 +101,9 @@ function displayMovies(){
             //The following query allows SQL injection due to the single quotes
             //$sql .= " AND deviceName LIKE '%" . $_GET['deviceName'] . "%'";
   
-            $sql .= " AND rating LIKE :rating"; //using named parameters
-            $namedParameters[':rating'] = "%" . $_GET['
-            rating'] . "%";
+          
+            $sql .= " AND rating = :rating"; //using named parameters
+            $namedParameters[':rating'] =   $_GET['rating'] ;
          }   
            if (!empty($_GET['genreId'])) {
             
@@ -121,24 +152,34 @@ function displayMovies(){
         
         <form>
             Movie Names: <input type="text" name="movieName" placeholder="movieName"/>
+            <br></br>
             Movie Length: 
             <select name="length">
                 <option value="">Select One</option>
                 <?=getMovieLength()?>
             </select>
+            <br></br>
             
+             Release Year: 
+            <select name="release_year">
+                <option value="">Select One</option>
+                <?=getMovieYear()?>
+            </select>
+            <br></br>
+           Movie Rating(1-100): 
+            <select name="rating">
+                <option value="">Select One</option>
+                <?=getMovieRating()?>
+            </select>
+            
+             <br></br>
+             Sort by:
+            <input type="radio" name="sortBy" id="sortByAsc" value="Asc"/> 
+             <label for="sortByAsc"> ASC </label>
+            <input type="radio" name="sortBy" id="sortByDesc" value="Desc"/> 
+             <label for="sortByAsc"> DESC </label>
            
-            
-            <br>
-            Order by:
-            <input type="radio" name="orderBy" id="orderByReleaseyear" value="releaseyear"/> 
-             <label for="releaseyear"> Release Year </label>
-            <input type="radio" name="orderBy" id="orderByLength" value="length"/> 
-             <label for="length"> Movie Length </label>
-             <input type="radio" name="orderBy" id="orderByRating" value="rating"/> 
-             <label for="rating"> Movie Rating </label>
-            
-            
+          
             <br></br>
             <input type="submit" value="Search!" name="submit" >
         </form>
