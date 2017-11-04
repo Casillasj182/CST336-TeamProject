@@ -1,14 +1,14 @@
 <?php
 
-include '../../dbConnection.php';
+include '../dbConnection.php';
 
 $conn = getDatabaseConnection();
 
-function getGenre() {
+function getMovieLength() {
     global $conn;
-    $sql = "SELECT genreName
-            FROM `genre` 
-            ORDER BY genreName";
+    $sql = "SELECT distinct(length)
+            FROM `movie` 
+            ORDER BY length";
     
     $stmt = $conn->prepare($sql);
     $stmt->execute();
@@ -16,7 +16,7 @@ function getGenre() {
     
     foreach ($records as $record) {
         
-        echo "<option> "  . $record['genreName'] . "</option>";
+        echo "<option> "  . $record['length'] . "</option>";
     }
 }
 
@@ -24,7 +24,7 @@ function getGenre() {
 function displayMovies(){
     global $conn;
     
-    $sql = "SELECT * FROM movies WHERE 1 ";
+    $sql = "SELECT * FROM movie WHERE 1 ";
     
     
     if (isset($_GET['submit']))
@@ -34,18 +34,18 @@ function displayMovies(){
      
        
          
-        if (!empty($_GET['name'])) {
+        if (!empty($_GET['movieName'])) {
             
             //The following query allows SQL injection due to the single quotes
             //$sql .= " AND deviceName LIKE '%" . $_GET['deviceName'] . "%'";
   
-            $sql .= " AND name LIKE :name"; //using named parameters
-            $namedParameters[':name'] = "%" . $_GET['name'] . "%";
+            $sql .= " AND movieName LIKE :movieName"; //using named parameters
+            $namedParameters[':movieName'] = "%" . $_GET['movieName'] . "%";
 
          }     
          
            
-        if (!empty($_GET['releaseyear'])) {
+        if (!empty($_GET['release_year'])) {
             
             //The following query allows SQL injection due to the single quotes
             //$sql .= " AND deviceName LIKE '%" . $_GET['deviceName'] . "%'";
@@ -54,6 +54,35 @@ function displayMovies(){
             $namedParameters[':releaseyear'] = "%" . $_GET['release_year'] . "%";
          }     
          
+             
+        if (!empty($_GET['length'])) {
+            
+            //The following query allows SQL injection due to the single quotes
+            //$sql .= " AND deviceName LIKE '%" . $_GET['deviceName'] . "%'";
+  
+            $sql .= " AND length LIKE :length"; //using named parameters
+            $namedParameters[':length'] = "%" . $_GET['
+            length'] . "%";
+         }   
+              
+        if (!empty($_GET['rating'])) {
+            
+            //The following query allows SQL injection due to the single quotes
+            //$sql .= " AND deviceName LIKE '%" . $_GET['deviceName'] . "%'";
+  
+            $sql .= " AND rating LIKE :rating"; //using named parameters
+            $namedParameters[':rating'] = "%" . $_GET['
+            rating'] . "%";
+         }   
+           if (!empty($_GET['genreId'])) {
+            
+            //The following query allows SQL injection due to the single quotes
+            //$sql .= " AND deviceName LIKE '%" . $_GET['deviceName'] . "%'";
+  
+            $sql .= " AND genreId LIKE :genreId"; //using named parameters
+            $namedParameters[':genreId'] = "%" . $_GET['
+           genreId'] . "%";
+         }   
        
         
         
@@ -71,7 +100,8 @@ function displayMovies(){
     
      foreach ($records as $record) {
         
-        echo  $record['name'] . " " . "  ". $record['genre'] .
+        echo  $record['movieName'] . " " . $record['length']. "  ". $record['release_year'] 
+        . " " . $record['rating'] . " " . $record['genreId'] .
               "<a target='shoppingcart' href='shoppingcart.php?movieId=".$record['movieId']."'> Shopping Cart </a> <br />";
         
     }
@@ -90,11 +120,11 @@ function displayMovies(){
         <h1> Movie Catalog Shop </h1>
         
         <form>
-            Movie Names: <input type="text" name="name" placeholder="name"/>
-            Genre: 
-            <select name="gname">
+            Movie Names: <input type="text" name="movieName" placeholder="movieName"/>
+            Movie Length: 
+            <select name="length">
                 <option value="">Select One</option>
-                <?=getGenre()?>
+                <?=getMovieLength()?>
             </select>
             
            
