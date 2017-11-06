@@ -11,14 +11,22 @@ $conn = getDatabaseConnection();
 function displayUsers() {
     global $conn;
     $sql = "SELECT * 
-            FROM movie 
-            WHERE movieId=" .$_GET['movieId'];
+    FROM movie AS m 
+    INNER JOIN director AS d 
+    ON m.movieId = 1";
+    
     $statement = $conn->prepare($sql);
     $statement->execute();
     $users = $statement->fetchAll(PDO::FETCH_ASSOC);
     //print_r($users);
     return $users;
 }
+
+// function displayDirector() {
+//     $sql = "SELECT *
+//             FROM director
+//             WHERE directorId =" 
+// }
 
 
 ?>
@@ -56,8 +64,17 @@ function displayUsers() {
         
       foreach($users as $user) {
             
-            echo " Movie Name: " . $user['movieName'] . "<br> " . ' Movie ID: '  .$user['movieId']
-            . "<br> " . ' Year of Release: '  .$user['release_year'];
+            echo " Movie Name: " . $user['movieName']
+            . "<br> " . 
+            ' Movie ID: '  .$user['movieId']
+            . "<br> " . 
+            ' Year of Release: '  .$user['release_year']
+            . "</br>" . 
+            'Length: ' . $user['length']
+            ."<br/>".
+            'Rating: ' . $user['rating']
+            . "<br/>";
+            
            // echo "[<a href= . $user['firstName']";
           // echo "[<a href='updateUser.php?userId=".$user['userId']."'> Update </a> ]";
             
