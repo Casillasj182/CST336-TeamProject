@@ -11,8 +11,8 @@ $conn = getDatabaseConnection();
 function displayUsers() {
     global $conn;
     $sql = "SELECT * 
-            FROM movie 
-            WHERE movieId=" .$_GET['movieId'];
+            FROM movie NATURAL JOIN director NATURAL JOIN genre
+            WHERE movieId=" . $_GET['movieId'];
     $statement = $conn->prepare($sql);
     $statement->execute();
     $users = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -56,8 +56,8 @@ function displayUsers() {
         
       foreach($users as $user) {
             
-            echo " Movie Name: " . $user['movieName'] . "<br> " . ' Movie ID: '  .$user['movieId']
-            . "<br> " . ' Year of Release: '  .$user['release_year'];
+            echo " Movie Name: " . $user['movieName']. "<br> " . ' Movie Length: '  .$user['length'] .  "<br> "." mins". ' Movie Genre: '  .$user['genreName'] . "<br> " . ' Movie ID: '  .$user['movieId']
+            . "<br> " . ' Year of Release: '  .$user['release_year'] . "<br> " . ' Director Name: '.$user['directorName'];
            // echo "[<a href= . $user['firstName']";
           // echo "[<a href='updateUser.php?userId=".$user['userId']."'> Update </a> ]";
             
@@ -75,7 +75,7 @@ function displayUsers() {
             
         }
         
-        
+      
         ?>
         </div>
         </center>

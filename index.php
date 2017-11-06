@@ -138,7 +138,7 @@ function displayMovies(){
           $url = $record['movieId'];
          echo "<td>" . "<a href='movieInfo.php?movieId=" . $url . "' target='movieInfoFrame'>" . $record['movieName'] . "</a></td>";
            echo "<td>" . $_GET['movieName'] . "</td>";
-        echo  $record['movieName'] . " " . $record['length']. "  ". $record['release_year'] 
+        echo   $record['length']. "  ". $record['release_year'] 
         . " " . $record['rating'] .
               "<a target='shoppingcart' href='shoppingcart.php?movieId=".$record['movieId']."'> Shopping Cart </a> <br />";
         
@@ -153,6 +153,7 @@ function displayMovies(){
         <title>CSUMB Movie Store</title>
     </head>
     <body>
+        <body background="movie.jpg">
           <link href="css/styles.css" rel="stylesheet" type="text/css" />
         <div>
         <h1>CSUMB Movie Store</h1>
@@ -191,7 +192,7 @@ function displayMovies(){
             <input type="submit" value="Search for a Movie!" name="submit" >
             
             <br></br>
-             <input type ="button" value="Shopping Cart" name="shoppingcart" onclick="location.href='shoppingcart.php'"/>
+             <input type ="button" value="View Shopping Cart" name="shoppingcart" onclick="location.href='shoppingcart.php'"/>
               <br></br>  
         </form>
         
@@ -207,9 +208,8 @@ function displayMovies(){
 
 </div>
  <div id="movieinfo" style = "float:center">
-    <iframe src="" width="400" height="400" name="movieinfoFrame"></iframe>
     <br></br>
-    <iframe name="shoppingcart" width="400" height="400"></iframe>
+  
 </div>
 
     </body>
