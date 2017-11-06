@@ -129,6 +129,8 @@ function displayMovies(){
     }
     
     
+    
+    
     $stmt = $conn->prepare($sql);
     $stmt->execute($namedParameters);
     $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -153,10 +155,14 @@ function displayMovies(){
         <title>CSUMB Movie Store</title>
     </head>
     <body>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
           <link href="css/styles.css" rel="stylesheet" type="text/css" />
-        <div>
+          <div class="col-md-2"></div>
+          <div>
         <h1>CSUMB Movie Store</h1>
         
+
         <form>
             Movie Names: <input type="text" name="movieName" placeholder="movieName"/>
             <br></br>
@@ -197,19 +203,17 @@ function displayMovies(){
         
         
         <hr>
-        
-        <?=displayMovies()?>
-        
-       
-      
-    
+        <div class="col-md-2"></div>
+        <div id="movieList" class="col-md-6">
 
+        <?=displayMovies()?>
 
 </div>
  <div id="movieinfo" style = "float:center">
     <iframe src="" width="400" height="400" name="movieinfoFrame"></iframe>
     <br></br>
     <iframe name="shoppingcart" width="400" height="400"></iframe>
+</div>
 </div>
 
     </body>

@@ -13,7 +13,9 @@ function displayUsers() {
     $sql = "SELECT * 
     FROM movie AS m 
     INNER JOIN director AS d 
-    ON m.movieId = " . $_GET['movieId'];
+    INNER JOIN genre AS g
+    ON m.movieId = " . $_GET['movieId'] . 
+    "ORDER BY movieName LIMIT 1";
     
     $statement = $conn->prepare($sql);
     $statement->execute();
@@ -75,7 +77,9 @@ function displayUsers() {
             'Rating: ' . $user['rating']
             . "<br/>" .
             'Director: ' . $user['directorName']
-            . "<br/>";
+            ."<br/>".
+            'Genre: ' . $user['genreName']
+            . "<br/> <br/>";
             
            // echo "[<a href= . $user['firstName']";
           // echo "[<a href='updateUser.php?userId=".$user['userId']."'> Update </a> ]";
