@@ -62,17 +62,19 @@ function displayUsers() {
         
         $users =displayUsers();
         
-      foreach($users as $user) {
+       foreach($users as $user) {
             
             echo " Movie Name: " . $user['movieName']
             . "<br> " . 
-            ' Movie ID: '  .$user['movieId']
+            ' Movie ID: '  . $_GET['movieId']
             . "<br> " . 
             ' Year of Release: '  .$user['release_year']
             . "</br>" . 
             'Length: ' . $user['length']
             ."<br/>".
             'Rating: ' . $user['rating']
+            . "<br/>" .
+            'Director: ' . $user['directorName']
             . "<br/>";
             
            // echo "[<a href= . $user['firstName']";
@@ -90,7 +92,7 @@ function displayUsers() {
            // echo "<a class='name' href='usernfo.php?userId=".$user['userId']."'> $name </a> ";
           
             
-        }
+         }
         
         
         ?>
