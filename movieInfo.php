@@ -56,21 +56,9 @@ function displayUsers() {
         
       foreach($users as $user) {
             
-            echo " Movie Name: " . $user['movieName']. "<br> " . ' Movie Length: '  .$user['length'] .  "<br> "." mins". ' Movie Genre: '  .$user['genreName'] . "<br> " . ' Movie ID: '  .$user['movieId']
+            echo " Movie Name: " . $user['movieName']. "<br> " . ' Movie Length: '  .$user['length'] ." mins". "<br". ' Movie Genre: '  .$user['genreName'] . "<br> " . ' Movie ID: '  .$user['movieId']
             . "<br> " . ' Year of Release: '  .$user['release_year'] . "<br> " . ' Director Name: '.$user['directorName'];
-           // echo "[<a href= . $user['firstName']";
-          // echo "[<a href='updateUser.php?userId=".$user['userId']."'> Update </a> ]";
-            
            
-           //this is what im trying to make wo
-            //echo "[<a href='userinfo.php?variableName=$_GET['variable']".$user['userId']."'> Update </a> ]";
-            // echo "<a href='userinfo.php?userId=".$user['userId']."'> . $user['firstName']"'.  </a> ";
-           
-            
-//$name = $user['firstName'] . "  " . $user['lastName'];
-           //  echo "<a href='userinfo.php?". "<a href=' . $user['firstName']" i. $_GET['firstName']."'></a> ]";
-            //echo "[<a href='deleteUser.php?userId=".$user['userId']."'> Delete </a> ]";
-           // echo "<a class='name' href='usernfo.php?userId=".$user['userId']."'> $name </a> ";
           
             
         }
@@ -82,3 +70,4 @@ function displayUsers() {
         </div>
     </body>     
 </html>
+
