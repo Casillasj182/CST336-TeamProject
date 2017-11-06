@@ -5,7 +5,7 @@
 function displayShoppingCart() {
     //echo "<title> Device Checkout </title>";
     
-    include '../../dbConnection.php';
+    include '../dbConnection.php';
     $conn = getDatabaseConnection();
     
     $sql = "SELECT * 
@@ -22,7 +22,7 @@ function displayShoppingCart() {
     echo "<div>";
     foreach ($records as $record) {
         
-        echo  $record['name'] . " " . $record['name'] ." " . $record['genreName'] . "<br />";
+        echo  $record['movieName'] . " " . $record['directorName'] ." " . $record['genreName'] . "<br />";
         
     }
      echo "</div>";

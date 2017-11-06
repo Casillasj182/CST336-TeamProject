@@ -114,15 +114,18 @@ function displayMovies(){
             $namedParameters[':genreId'] = "%" . $_GET['
            genreId'] . "%";
          }   
+       if(!empty($_GET['asc']))
+       {
+            $sql = "SELECT * FROM movie ORDER BY movieName" . $_GET['asc'];
+       }
        
-        
-        
-    }//endIf (isset)
+     
     
-    //If user types a deviceName
-     //   "AND deviceName LIKE '%$_GET['deviceName']%'";
-    //if user selects device type
-      //  "AND deviceType = '$_GET['deviceType']";
+     
+      
+     
+        
+    }
     
     
     $stmt = $conn->prepare($sql);
@@ -132,7 +135,7 @@ function displayMovies(){
      foreach ($records as $record) {
         
         echo  $record['movieName'] . " " . $record['length']. "  ". $record['release_year'] 
-        . " " . $record['rating'] . " " . $record['genreId'] .
+        . " " . $record['rating'] .
               "<a target='shoppingcart' href='shoppingcart.php?movieId=".$record['movieId']."'> Shopping Cart </a> <br />";
         
     }
@@ -143,12 +146,12 @@ function displayMovies(){
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Movie Shop </title>
+        <title>CSUMB Movie Store</title>
     </head>
     <body>
           <link href="css/styles.css" rel="stylesheet" type="text/css" />
         <div>
-        <h1> Movie Catalog Shop </h1>
+        <h1>CSUMB Movie Store</h1>
         
         <form>
             Movie Names: <input type="text" name="movieName" placeholder="movieName"/>
@@ -174,14 +177,13 @@ function displayMovies(){
             
              <br></br>
              Sort by:
-            <input type="radio" name="sortBy" id="sortByAsc" value="Asc"/> 
-             <label for="sortByAsc"> ASC </label>
-            <input type="radio" name="sortBy" id="sortByDesc" value="Desc"/> 
-             <label for="sortByAsc"> DESC </label>
+          <input type="radio" name="asc" value="ASC" checked/> Ascending
+        <input type="radio" name="asc" value="DESC"/> Descending<br />
+            
            
           
             <br></br>
-            <input type="submit" value="Search!" name="submit" >
+            <input type="submit" value="Search for a Movie!" name="submit" >
         </form>
         
         
@@ -189,12 +191,32 @@ function displayMovies(){
         
         <?=displayMovies()?>
         
+        <iframe name="shoppingcart" width="400" height="400"></iframe>
+        
+         <?php
+        
+     // $users = displayMovies();
+        
+      foreach($users as $user) 
+      {
+             $name = $user['movieId'];
+          
+           
+            echo "<a href='movieInfo.php?movieId=".$user['movieId']."'> $name </a> ";
+           
+           
+    
+            
+            echo "<br />";
+            
+        }
         
         
-        <iframe name="checkoutHistory" width="400" height="400"></iframe>
+        ?>
         
 
 
 </div>
+
     </body>
 </html>
