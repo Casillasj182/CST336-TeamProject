@@ -13,7 +13,7 @@ function displayUsers() {
     $sql = "SELECT * 
     FROM movie AS m 
     INNER JOIN director AS d 
-    ON m.movieId = 1";
+    ON m.movieId = " . $_GET['movieId'];
     
     $statement = $conn->prepare($sql);
     $statement->execute();
