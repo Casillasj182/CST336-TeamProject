@@ -26,3 +26,13 @@ a{
 #movieList{
  text-align: left; 
 }
+/*copied from https://www.w3schools.com/html/html_tables.asp*/
+td, th {
+    /*border: 1px solid #52aa69;*/
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #52aa69;
+}

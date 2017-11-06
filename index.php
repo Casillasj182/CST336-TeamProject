@@ -223,11 +223,7 @@ function displayMovies(){
         <?=displayMovies()?>
 
 </div>
- <div id="movieinfo" style = "float:center">
-    <iframe src="" width="400" height="400" name="movieinfoFrame"></iframe>
-    <br></br>
-    <iframe name="shoppingcart" width="400" height="400"></iframe>
-</div>
+
 </div>
 
     </body>
