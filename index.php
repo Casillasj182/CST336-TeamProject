@@ -116,7 +116,7 @@ function displayMovies(){
          }   
        if(!empty($_GET['asc']))
        {
-            $sql = "SELECT * FROM movie ORDER BY movieName" . $_GET['asc'];
+            $sql = "SELECT * FROM movie ORDER BY movieName" . " " . $_GET['asc'];
        }
        
      
