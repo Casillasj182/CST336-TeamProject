@@ -135,8 +135,8 @@ function displayMovies(){
     
      foreach ($records as $record) 
      {
-          $url = $_GET['movieId'];
-         echo "<td>" . "<a href='movieinfo.php?movieId=" . $url . "' target='movieinfoFrame'>" . $song['movieName'] . "</a></td>";
+          $url = $record['movieId'];
+         echo "<td>" . "<a href='movieInfo.php?movieId=" . $url . "' target='movieInfoFrame'>" . $record['movieName'] . "</a></td>";
            echo "<td>" . $_GET['movieName'] . "</td>";
         echo  $record['movieName'] . " " . $record['length']. "  ". $record['release_year'] 
         . " " . $record['rating'] .
@@ -184,10 +184,15 @@ function displayMovies(){
           <input type="radio" name="asc" value="ASC" /> Ascending
           <input type="radio" name="asc" value="DESC"/> Descending<br />
             
+            
            
           
             <br></br>
             <input type="submit" value="Search for a Movie!" name="submit" >
+            
+            <br></br>
+             <input type ="button" value="Shopping Cart" name="shoppingcart" onclick="location.href='shoppingcart.php'"/>
+              <br></br>  
         </form>
         
         
@@ -195,7 +200,7 @@ function displayMovies(){
         
         <?=displayMovies()?>
         
-        <iframe name="shoppingcart" width="400" height="400"></iframe>
+       
       
     
 
@@ -203,6 +208,8 @@ function displayMovies(){
 </div>
  <div id="movieinfo" style = "float:center">
     <iframe src="" width="400" height="400" name="movieinfoFrame"></iframe>
+    <br></br>
+    <iframe name="shoppingcart" width="400" height="400"></iframe>
 </div>
 
     </body>

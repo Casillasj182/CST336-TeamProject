@@ -1,50 +1,28 @@
-<div>
 <?php
+session_start();
+$host = "localhost";
+$dbname = "project";
+$username = "root";
+$password = "";
 
-
-function displayShoppingCart() {
-    //echo "<title> Device Checkout </title>";
-    
-    include '../dbConnection.php';
-    $conn = getDatabaseConnection();
-    
-    $sql = "SELECT * 
-            FROM `movies` 
-            NATURAL JOIN director
-            NATURAL JOIN genre
-            WHERE movieId = :movieId";
-    
-    $namedParam = array(":movieId"=>$_GET['movieId']);
-    
-    $stmt = $conn->prepare($sql);
-    $stmt->execute($namedParam);
-    $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    echo "<div>";
-    foreach ($records as $record) {
-        
-        echo  $record['movieName'] . " " . $record['directorName'] ." " . $record['genreName'] . "<br />";
-        
-    }
-     echo "</div>";
-    
-}
+$dbConn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+$dbConn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 ?>
-</div>
-
-<!DOCTYPE html>
 <html>
     <head>
-        <div>
-        <title> Shopping Cart</title>
+        <title>Shopping Cart</title>
+        <style>
+ body{
+                width:800px;
+                margin:0 auto;
+                text-align:center;
+        }
+        </style>
     </head>
     <body>
-        
-        <h2> Shopping Cart </h2>
-
-
-        <?=displayShoppingcart()?>
-
+        <center><h1> Shopping Cart </h1></center> 
+    <form>
+    </form>
     </body>
-    </div>
 </html>
