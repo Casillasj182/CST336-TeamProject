@@ -134,32 +134,42 @@ function displayMovies(){
     $stmt = $conn->prepare($sql);
     $stmt->execute($namedParameters);
     $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    ?>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Length</th>
+            <th>Released</th>
+            <th>Score</th>
+            <th>Shop</th>
+        </tr>
     
+        
+    <?php
      foreach ($records as $record) 
      {
           $url = $record['movieId'];
-         echo "<td>" . "<a href='movieInfo.php?movieId=" . $url . "' target='movieInfoFrame'>" . $record['movieName'] . "</a></td>";
-           echo "<td>" . $_GET['movieName'] . "</td>";
-        echo   $record['length']. "  ". $record['release_year'] 
-        . " " . $record['rating'] .
-              "<a target='shoppingcart' href='shoppingcart.php?movieId=".$record['movieId']."'> Shopping Cart </a> <br />";
+        echo "<tr>".
+        "<td>" . "<a href='movieInfo.php?movieId=" . $url . "' target='movieInfoFrame'>" . $record['movieName'] . "</a></td>".
+        //"<td>" . $_GET['movieName'] . "</td>".
+        "<td> " .  $record['length']. "</td>". 
+        "<td> ". $record['release_year'] . "</td>" .
+        "<td>" . $record['rating'] . "</td>".
+        "<td> <a target='shoppingcart' href='shoppingcart.php?movieId=".$record['movieId']."'> [Add to Cart] </a> <br /> </td>".
+        "</tr>";
         
     }
 }
 
 ?>
-
+</table>
 <!DOCTYPE html>
 <html>
     <head>
         <title>CSUMB Movie Store</title>
     </head>
     <body>
-
-        <body background="movie.jpg">
-
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-
 
           <link href="css/styles.css" rel="stylesheet" type="text/css" />
           <div class="col-md-2"></div>
@@ -201,7 +211,7 @@ function displayMovies(){
             <input type="submit" value="Search for a Movie!" name="submit" >
             
             <br></br>
-             <input type ="button" value="View Shopping Cart" name="shoppingcart" onclick="location.href='shoppingcart.php'"/>
+             <input type ="button" value="Shopping Cart" name="shoppingcart" onclick="location.href='shoppingcart.php'"/>
               <br></br>  
         </form>
         
@@ -214,8 +224,9 @@ function displayMovies(){
 
 </div>
  <div id="movieinfo" style = "float:center">
+    <iframe src="" width="400" height="400" name="movieinfoFrame"></iframe>
     <br></br>
-  
+    <iframe name="shoppingcart" width="400" height="400"></iframe>
 </div>
 </div>
 
