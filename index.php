@@ -116,7 +116,7 @@ function displayMovies(){
          }   
        if(!empty($_GET['asc']))
        {
-            $sql = "SELECT * FROM movie ORDER BY movieName" . $_GET['asc'];
+            $sql = "SELECT * FROM movie ORDER BY movieName" . " " . $_GET['asc'];
        }
        
      
@@ -132,8 +132,11 @@ function displayMovies(){
     $stmt->execute($namedParameters);
     $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
-     foreach ($records as $record) {
-        
+     foreach ($records as $record) 
+     {
+          $url = $_GET['movieId'];
+         echo "<td>" . "<a href='movieinfo.php?movieId=" . $url . "' target='movieinfoFrame'>" . $song['movieName'] . "</a></td>";
+           echo "<td>" . $_GET['movieName'] . "</td>";
         echo  $record['movieName'] . " " . $record['length']. "  ". $record['release_year'] 
         . " " . $record['rating'] .
               "<a target='shoppingcart' href='shoppingcart.php?movieId=".$record['movieId']."'> Shopping Cart </a> <br />";
@@ -177,8 +180,8 @@ function displayMovies(){
             
              <br></br>
              Sort by:
-          <input type="radio" name="asc" value="ASC" checked/> Ascending
-        <input type="radio" name="asc" value="DESC"/> Descending<br />
+          <input type="radio" name="asc" value="ASC" /> Ascending
+          <input type="radio" name="asc" value="DESC"/> Descending<br />
             
            
           
@@ -192,30 +195,13 @@ function displayMovies(){
         <?=displayMovies()?>
         
         <iframe name="shoppingcart" width="400" height="400"></iframe>
-        
-         <?php
-        
-     // $users = displayMovies();
-        
-      foreach($users as $user) 
-      {
-             $name = $user['movieId'];
-          
-           
-            echo "<a href='movieInfo.php?movieId=".$user['movieId']."'> $name </a> ";
-           
-           
+      
     
-            
-            echo "<br />";
-            
-        }
-        
-        
-        ?>
-        
 
 
+</div>
+ <div id="movieinfo" style = "float:center">
+    <iframe src="" width="400" height="400" name="movieinfoFrame"></iframe>
 </div>
 
     </body>
