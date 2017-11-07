@@ -119,13 +119,6 @@ function displayMovies(){
              $sql .= "  ORDER BY movieName" . " " . $_GET['asc'];
             //$sql = "SELECT * FROM movie ORDER BY movieName" . " " . $_GET['asc'];
        }
-       
-     
-    
-     
-      
-     
-        
     }
     
     
@@ -178,7 +171,7 @@ function displayMovies(){
         
 
         <form>
-            Movie Names: <input type="text" name="movieName" placeholder="movieName"/>
+            Movie Names: <input type="text" name="movieName" placeholder="Movie Name"/>
             <br></br>
             Movie Length: 
             <select name="length">
@@ -193,7 +186,7 @@ function displayMovies(){
                 <?=getMovieYear()?>
             </select>
             <br></br>
-           Movie Rating(1-100): 
+           Movie Rating (%): 
             <select name="rating">
                 <option value="">Select One</option>
                 <?=getMovieRating()?>
