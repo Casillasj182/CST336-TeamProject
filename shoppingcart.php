@@ -54,17 +54,38 @@ function addToCart()
     //return $_SESSION[0];
 }
 
+function removeItem($i)
+{
+   unset($_SESSION['cartItems'][$i]);
+   array_values($_SESSION['cartItems']);
+}
+
 ?>
 <html>
     <head>
         <title>Shopping Cart</title>
           <link href="css/main.css" rel="stylesheet" type="text/css" />
           <link href="css/styles.css" rel="stylesheet" type="text/css" />
+          
     </head>
     <body>
         <center>
             <h1> Shopping Cart </h1>
+            
+         
+        
+    <form method = "post">
+        
+        <input type ='submit' value='Clear Cart' id = 'click' name = 'submit' />
+        <br>
             <?php
+             for($i = 0;$i<count($_SESSION['cartItems']);$i++)
+                {
+                    if(array_key_exists('submit',$_POST))
+                    {
+                        $_SESSION['cartItems'] = array();
+                    }
+                }
               
                 if(isset ($_GET['movieId']))
                 {
@@ -73,13 +94,12 @@ function addToCart()
                 
                 for($i = 0;$i<count($_SESSION['cartItems']);$i++)
                 {
-                    echo "Movie Title: ". $_SESSION['cartItems'][$i][0]['movieName'] . "<br>";
+                    echo "Movie Title: ". $_SESSION['cartItems'][$i][0]['movieName'] . "<br><br>";
                 }
               
             ?>
-        </center> 
-        
-    <form>
+            
     </form>
+    </center>
     </body>
 </html>
