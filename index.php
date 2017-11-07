@@ -171,9 +171,9 @@ function displayMovies(){
         
 
         <form>
-            Movie Names: <input type="text" name="movieName" placeholder="Movie Name"/>
+            Title: <input type="text" name="movieName" placeholder="type here"/>
             <br></br>
-            Movie Length: 
+            Length (mins): 
             <select name="length">
                 <option value="">Select One</option>
                 <?=getMovieLength()?>
@@ -186,7 +186,7 @@ function displayMovies(){
                 <?=getMovieYear()?>
             </select>
             <br></br>
-           Movie Rating (%): 
+           Rating (%): 
             <select name="rating">
                 <option value="">Select One</option>
                 <?=getMovieRating()?>
