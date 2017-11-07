@@ -4,7 +4,8 @@ include '../dbConnection.php';
 
 $conn = getDatabaseConnection();
 
-function getMovieLength() {
+function getMovieLength() 
+{
     global $conn;
     $sql = "SELECT distinct(length)
             FROM `movie` 
@@ -14,13 +15,15 @@ function getMovieLength() {
     $stmt->execute();
     $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
-    foreach ($records as $record) {
+    foreach ($records as $record) 
+    {
         
         echo "<option> "  . $record['length'] . "</option>";
     }
 }
 
-function getMovieYear() {
+function getMovieYear()
+{
     global $conn;
     $sql = "SELECT distinct(release_year)
             FROM `movie` 
@@ -30,13 +33,15 @@ function getMovieYear() {
     $stmt->execute();
     $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
-    foreach ($records as $record) {
+    foreach ($records as $record)
+    {
         
         echo "<option> "  . $record['release_year'] . "</option>";
     }
 }
 
-function getMovieRating() {
+function getMovieRating() 
+{
     global $conn;
     $sql = "SELECT distinct(rating)
             FROM `movie` 
@@ -46,8 +51,8 @@ function getMovieRating() {
     $stmt->execute();
     $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
-    foreach ($records as $record) {
-        
+    foreach ($records as $record) 
+    {
         echo "<option> "  . $record['rating'] . "</option>";
     }
 }
@@ -60,65 +65,49 @@ function displayMovies(){
     
     
     if (isset($_GET['submit']))
-    {
-        
+        {
         $namedParameters = array();
      
-       
-         
-        if (!empty($_GET['movieName'])) {
-            
-            //The following query allows SQL injection due to the single quotes
-            //$sql .= " AND deviceName LIKE '%" . $_GET['deviceName'] . "%'";
+    if (!empty($_GET['movieName'])) 
+        {
   
-            $sql .= " AND movieName LIKE :movieName"; //using named parameters
+            $sql .= " AND movieName LIKE :movieName"; 
             $namedParameters[':movieName'] = "%" . $_GET['movieName'] . "%";
-
-         }     
+        }     
+       
+    if (!empty($_GET['release_year']))
+        {
          
-           
-        if (!empty($_GET['release_year'])) {
-            
-            //The following query allows SQL injection due to the single quotes
-            //$sql .= " AND deviceName LIKE '%" . $_GET['deviceName'] . "%'";
-  
-           $sql .= " AND release_year = :release_year"; //using named parameters
+           $sql .= " AND release_year = :release_year";
             $namedParameters[':release_year'] =   $_GET['release_year'] ;
-         }     
-         
-             
-        if (!empty($_GET['length'])) {
-            
-            //The following query allows SQL injection due to the single quotes
-            //$sql .= " AND deviceName LIKE '%" . $_GET['deviceName'] . "%'";
-  
-            $sql .= " AND length = :length"; //using named parameters
+        }     
+        
+    if (!empty($_GET['length'])) 
+        {
+       
+            $sql .= " AND length = :length"; 
             $namedParameters[':length'] =   $_GET['length'] ;
-         }   
+        }   
               
-        if (!empty($_GET['rating'])) {
-            
-            //The following query allows SQL injection due to the single quotes
-            //$sql .= " AND deviceName LIKE '%" . $_GET['deviceName'] . "%'";
-  
-          
-            $sql .= " AND rating = :rating"; //using named parameters
+    if (!empty($_GET['rating'])) 
+        {
+            $sql .= " AND rating = :rating"; 
             $namedParameters[':rating'] =   $_GET['rating'] ;
-         }   
-           if (!empty($_GET['genreId'])) {
-            
-            //The following query allows SQL injection due to the single quotes
-            //$sql .= " AND deviceName LIKE '%" . $_GET['deviceName'] . "%'";
-  
-            $sql .= " AND genreId LIKE :genreId"; //using named parameters
+        }  
+    
+    if (!empty($_GET['genreId']))
+        {
+         
+            $sql .= " AND genreId LIKE :genreId"; 
             $namedParameters[':genreId'] = "%" . $_GET['
            genreId'] . "%";
-         }   
-       if(!empty($_GET['asc']))
-       {
+        } 
+         
+    if(!empty($_GET['asc']))
+        {
              $sql .= "  ORDER BY movieName" . " " . $_GET['asc'];
-            //$sql = "SELECT * FROM movie ORDER BY movieName" . " " . $_GET['asc'];
-       }
+           
+        }
     }
     
     
@@ -144,7 +133,6 @@ function displayMovies(){
           $url = $record['movieId'];
         echo "<tr>".
         "<td>" . "<a href='movieInfo.php?movieId=" . $url . "' target='movieInfoFrame'>" . $record['movieName'] . "</a></td>".
-        //"<td>" . $_GET['movieName'] . "</td>".
         "<td> " .  $record['length']. "</td>". 
         "<td> ". $record['release_year'] . "</td>" .
         "<td>" . $record['rating'] . "</td>".
@@ -180,20 +168,20 @@ function displayMovies(){
             </select>
             <br></br>
             
-             Release Year: 
+                 Release Year: 
             <select name="release_year">
                 <option value="">Select One</option>
                 <?=getMovieYear()?>
             </select>
             <br></br>
-           Rating (%): 
+               Rating (%): 
             <select name="rating">
                 <option value="">Select One</option>
                 <?=getMovieRating()?>
             </select>
             
              <br></br>
-             Sort by:
+                 Sort by:
           <input type="radio" name="asc" value="ASC" /> Ascending
           <input type="radio" name="asc" value="DESC"/> Descending<br />
             

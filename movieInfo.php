@@ -1,22 +1,21 @@
 <?php
 session_start();
 
-
-
-
 include '../dbConnection.php';
 $conn = getDatabaseConnection();
 
 
-function displayUsers() {
+function displayUsers()
+{
     global $conn;
-    $sql = "SELECT * 
-            FROM movie NATURAL JOIN director NATURAL JOIN genre
-            WHERE movieId=" . $_GET['movieId'];
+     $sql = "SELECT * FROM `movie` 
+     JOIN director on movie.directorId = director.directorId 
+    JOIN genre ON movie.genreId = genre.genreId 
+    where movie.movieId=" . $_GET['movieId'];
+    
     $statement = $conn->prepare($sql);
     $statement->execute();
     $users = $statement->fetchAll(PDO::FETCH_ASSOC);
-    //print_r($users);
     return $users;
 }
 
@@ -36,34 +35,20 @@ function displayUsers() {
         <div>
 <center>
         <h1> Movie Information </h1>
-      
-        
-        <hr>
-        
-        
-            
-            
-            
-        </form>
-        
-       
-        
         <br /><br />
         
         <?php
         
         $users =displayUsers();
         
-      foreach($users as $user) {
+         foreach($users as $user)
+         {
             
-            echo " Movie Name: " . $user['movieName']. "<br> " . ' Movie Length: '  .$user['length'] ." mins". "<br". ' Movie Genre: '  .$user['genreName'] . "<br> " . ' Movie ID: '  .$user['movieId']
+            echo " Movie Name: " . $user['movieName']. "<br> " . 'Movie Genre: ' . $user['genreName'] 
+            . "<br>" .' Movie Length: '  .$user['length'] ." mins". "<br". ' Movie Genre: '  .$user['genreName'] 
+            . "<br> " . ' Movie ID: '  .$user['movieId']
             . "<br> " . ' Year of Release: '  .$user['release_year'] . "<br> " . ' Director Name: '.$user['directorName'];
-           
-          
-            
         }
-        
-      
         ?>
         </div>
         </center>
